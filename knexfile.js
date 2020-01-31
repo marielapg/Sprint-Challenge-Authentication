@@ -7,11 +7,11 @@ module.exports = {
       directory: './database/migrations',
       tableName: 'dbmigrations',
     },
-    seeds: { directory: './database/seeds' },
+  
   },
   testing: {
     client: "sqlite3",
-    connection: { filename: "./databae/test.db3", },
+    connection: { filename: "./database/test.db3", },
     useNullAsDefault: true,
     pool: {
       afterCreate: (conn, done) => {
@@ -19,7 +19,7 @@ module.exports = {
       },
     },
     migrations: { directory: "./database/migrations", },
-    seeds: { directory: "./database/seeds", },
+    
   }
 };
 
