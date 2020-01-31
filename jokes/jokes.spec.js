@@ -1,5 +1,5 @@
 const Jokes = require('../jokes/jokes-model.js');
-const db = require('../data/dbConfig.js');
+const db = require('../database/dbConfig.js');
 
 describe('joke model', function() {
     
@@ -26,6 +26,7 @@ describe('joke model', function() {
                 .then(res => {
                 // check that the status code is 200
                 expect(res.type).toMatch(/json/i)
+                
             })
         })
     })
