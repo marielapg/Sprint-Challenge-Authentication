@@ -1,33 +1,30 @@
-const Jokes = require('../jokes/model.js');
-const db = require('../data/dbConfig.js');
-const request = require('supertest');
-const authRouter = require('../auth/auth-router.js')
+const request = require("supertest");
+const jwt = require("jsonwebtoken");
+const server = require("../api/server.js");
 
-describe('jokes model', function() {
-    
-    
-    describe('test environment', function() {
-        it('should use the testing environment', function() {
-            expect(process.env.DB_ENV).toBe('testing');
-        })
-    })
-    
-    describe('insert()', function() {
-        beforeEach(async () => {
-            await db('users').truncate();
-        })
+describe('server.js', () => {
+    it("login", function () {
+        const login = "B"
+        return request(server)
+            .post("/api/auth/login")
+            .send({ username: login, password: login })
+            .then(res => {
+                expect(res.status).toBe(200);
+                expect(res.body.message).toBe(`Welcome ${login}!`)
+                expect(res.type).toMatch(/json/i)
+            });
+    });
+});
 
-        it('adds the new user to the db', async function() {
-            
-            await Jokes.insert({ username: 'sam', password: "123"  });
-            await Jokes.insert({ username: 'frodo', password: "333" });
-
-            
-            const jokes = await db('users');
-
-            expect(jokes).toHaveLength(2);
-        })
-    })     
-       
-
- })
+// describe('server.js', () => {
+//     it("register", function () {
+//         return request(server)
+//             .post("/api/auth/register")
+//             .send({ username: "F", password: "F" })
+//             .then(res => {
+//                 console.log("res.body", res.body)
+//                 expect(res.status).toBe(201);
+//                 expect(res.type).toMatch(/json/i)
+//             });
+//     });
+// });
